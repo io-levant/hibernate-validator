@@ -435,15 +435,26 @@ public class ConstraintTree<A extends Annotation> {
 		return passedValidation;
 	}
 
+	@SuppressWarnings( { "unchecked", "rawtypes" } )
 	private <T, V> Set<ConstraintViolation<T>> validateSingleConstraint(ValidationContext<T> executionContext,
 			ValueContext<?, ?> valueContext,
 			ConstraintValidatorContextImpl constraintValidatorContext,
 			ConstraintValidator<A, V> validator) {
 		boolean isValid;
 		try {
-			@SuppressWarnings("unchecked")
 			V validatedValue = (V) valueContext.getCurrentValidatedValue();
-			isValid = validator.isValid( validatedValue, constraintValidatorContext );
+			// detect the new ContextAwareConstraintValidator interface extension and route to its improved isValid
+			// method if possible. if the instance is the usual ConstraintValidator, instead, keep the backward
+			// compatibility calling its isValid method
+			if ( validator instanceof org.hibernate.validator.ext.ConstraintValidatorExt )
+			{				
+				isValid = ( ( org.hibernate.validator.ext.ConstraintValidatorExt ) validator )
+					.isValid( validatedValue, constraintValidatorContext, valueContext == null ? null : valueContext.getCurrentBean( ), valueContext );
+			}
+			else
+			{
+				isValid = validator.isValid( validatedValue, constraintValidatorContext );
+			}
 		}
 		catch (RuntimeException e) {
 			throw log.getExceptionDuringIsValidCallException( e );
