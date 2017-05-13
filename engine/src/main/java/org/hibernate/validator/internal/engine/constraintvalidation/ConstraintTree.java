@@ -449,7 +449,7 @@ public class ConstraintTree<A extends Annotation> {
 			if ( validator instanceof org.hibernate.validator.ext.ConstraintValidatorExt )
 			{				
 				isValid = ( ( org.hibernate.validator.ext.ConstraintValidatorExt ) validator )
-					.isValid( validatedValue, constraintValidatorContext, valueContext == null ? null : valueContext.getCurrentBean( ), valueContext );
+					.isValid( validatedValue, valueContext == null ? null : valueContext.getCurrentBean( ), constraintValidatorContext, valueContext );
 			}
 			else
 			{
