@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>io.levant</groupId>
+  <artifactId>hibernate-validator-ext</artifactId>
+  <versioning>
+    <versions>
+      <version>5.4.2-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20170513173641</lastUpdated>
+  </versioning>
+</metadata>
