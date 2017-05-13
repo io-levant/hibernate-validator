@@ -15,7 +15,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>hibernate-validator</artifactId>
+    <groupId>io.levant</groupId>
+    <artifactId>hibernate-validator-ext</artifactId>
 
     <name>Hibernate Validator Engine</name>
     <description>Hibernate's Bean Validation (JSR-303) reference implementation.</description>
